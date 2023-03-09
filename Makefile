@@ -71,7 +71,7 @@ $(BIN_DIR)/$(OS_BIN): $(OBJECT_DIR) $(BIN_DIR) $(SRC)
 	@$(CC) -T link/linker.ld -o $(BIN_DIR)/$(OS_BIN) $(SRC) $(LDFLAGS)
 
 $(BUILD_DIR)/$(OS_ISO): check $(ISO_DIR) $(BIN_DIR)/$(OS_BIN) GRUB_TEMPLATE
-	@./config-grub.sh ${OS_NAME} $(ISO_GRUB_DIR)/grub.cfg
+	./config-grub.sh ${OS_NAME} $(ISO_GRUB_DIR)/grub.cfg
 	cp $(BIN_DIR)/$(OS_BIN) $(ISO_BOOT_DIR)
 	grub-mkrescue -o $(BUILD_DIR)/$(OS_ISO) $(ISO_DIR)
 
@@ -81,7 +81,7 @@ instable: CFLAGS := -g -std=gnu99 -ffreestanding $(O) $(W) $(ARCH_OPT) -D__LUNAI
 instable: all
 
 all-debug: O := -Og
-all-debug: CFLAGS := -g -std=gnu99 -ffreestanding $(O) $(W) $(ARCH_OPT) -D__LUNAIXOS_DEBUG__
+all-debug: CFLAGS := -g -std=gnu99 -ffreestanding $(O) $(W) $(ARCH_OPT) -fomit-frame-pointer -D__LUNAIXOS_DEBUG__
 all-debug: LDFLAGS := -g -ffreestanding $(O) -nostdlib -lgcc
 all-debug: clean $(BUILD_DIR)/$(OS_ISO)
 	@echo "Dumping the disassembled kernel code to $(BUILD_DIR)/kdump.txt"

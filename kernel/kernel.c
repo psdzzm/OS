@@ -8,5 +8,5 @@ void _kernel_init() {
 void _kernel_main() {
     // TODO:
     tty_set_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
-    tty_put_string("Hello, world!\n");
+    tty_put_string("Hello, world!\nThis is the second line.\n");
 }
